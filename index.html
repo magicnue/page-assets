@@ -1,342 +1,722 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Magic的文件资源站</title>
-    <!-- Materialize CSS -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-    <!-- Material Icons -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title id="page-title-tag">Hexo Theme Redefine 示例</title>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <style>
-        body {
-            display: flex;
+        :root {
+            --background-color: #fff;
+            --second-background-color: #f8f8f8;
+            --third-background-color: #f2f2f2;
+            --primary-color: #0066cc;
+            --default-text-color: #333;
+            --second-text-color: #555;
+            --third-text-color: #777;
+            --fourth-text-color: #999;
+            --border-color: #eee;
+            --shadow-color-1: rgba(0, 0, 0, 0.08);
+            --scrollbar-color: #c1c1c1;
+            --scrollbar-color-hover: #a1a1a1;
+            --scroll-bar-bg-color: #fafafa;
+            --redefine-box-shadow: 0 6px 24px rgba(0, 0, 0, 0.05);
+            --redefine-box-shadow-flat: 0 1px 3px rgba(0, 0, 0, 0.08);
+            --redefine-border-radius-large: 16px;
+            --redefine-border-radius-medium: 12px;
+            --redefine-border-radius-small: 8px;
+            --navbar-height: 60px;
+
+            --light-wallpaper-url: url('https://image.magicnue.top/assets/wallpaper_250425-1.png');
+            --dark-wallpaper-url: url('https://image.magicnue.top/assets/wallpaper_250425-2.png');
+            --current-wallpaper-url: var(--light-wallpaper-url);
+        }
+
+        * {
+            transition: all 0.2s ease;
+        }
+
+        html, body {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            color: var(--default-text-color);
+            background-color: var(--background-color);
+            background-image: var(--current-wallpaper-url);
+            background-size: cover;
+            background-position: center center;
+            background-attachment: fixed;
+            background-repeat: no-repeat;
+            font-family: 'Geist', 'Noto Sans SC', sans-serif;
+            font-weight: 400;
+            font-size: 16px;
+            line-height: 1.5;
+        }
+
+        a {
+            text-decoration: none;
+            color: var(--default-text-color);
+            position: relative;
+            outline: 0;
+            cursor: pointer;
+            overflow-wrap: break-word;
+            box-sizing: border-box;
+            padding-bottom: 2px;
+            text-underline-offset: 2px;
+            text-decoration-color: var(--fourth-text-color);
+            transition: text-decoration-color 0.2s ease;
+        }
+
+        a:hover, a:active {
+            text-decoration: none !important;
+            color: var(--primary-color);
+        }
+
+        a:hover i, a:hover span, a:active i, a:active span {
+            color: var(--primary-color);
+        }
+
+        .page-container {
+            width: 100%;
             min-height: 100vh;
+        }
+
+        .main-content-container {
+            display: flex;
             flex-direction: column;
-            background-color: #f4f4f4;
+            justify-content: space-between;
+            min-height: 100vh;
         }
-        main {
-            flex: 1 0 auto;
-            padding-top: 20px;
-        }
-        .collection .collection-item {
+
+        .main-content-header {
+            background-color: var(--background-color);
+            box-shadow: var(--redefine-box-shadow-flat);
+            height: var(--navbar-height);
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding-top: 15px;
-            padding-bottom: 15px;
+            padding: 0 20px;
         }
-        .collection .collection-item .item-name {
-            flex-grow: 1;
-            margin-left: 15px;
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .navbar-logo {
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+
+        .navbar-menu {
+            display: flex;
+            gap: 20px;
+        }
+
+        .navbar-menu-item {
+            font-size: 1rem;
+        }
+
+        .main-content-body {
+            flex: 1;
+            display: flex;
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .main-content {
+            flex: 1;
+        }
+        
+        .home-article-item {
+            position: relative;
+            background-color: var(--background-color);
+            border-radius: var(--redefine-border-radius-medium);
+            box-shadow: var(--redefine-box-shadow-flat);
+            padding: 20px;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .home-article-item:hover {
+            transform: scale(1.015);
+            box-shadow: var(--redefine-box-shadow);
+        }
+
+        .home-article-title {
+            position: relative;
+            font-weight: 600;
+            font-size: 1.4rem;
+            line-height: 1.5;
+            color: var(--second-text-color);
+            margin: 0 0 10px 0;
+        }
+
+        .main-content-footer {
+            background-color: var(--second-background-color);
+            padding: 20px;
+            text-align: center;
+            color: var(--third-text-color);
+        }
+
+        .right-side-tools-container {
+            position: fixed;
+            right: 20px;
+            bottom: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .side-tool-button {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: var(--background-color);
+            box-shadow: var(--redefine-box-shadow);
+            display: flex;
+            align-items: center;
+            justify-content: center;
             cursor: pointer;
-            color: #039be5; /* Link color */
+            color: var(--second-text-color);
         }
-        .collection .collection-item .item-name:hover {
-            text-decoration: underline;
+
+        .side-tool-button:hover {
+            background-color: var(--primary-color);
+            color: white;
         }
-        .collection .collection-item .file-actions a {
-            margin-left: 10px;
-        }
-        .breadcrumb-container {
+
+        .repo-title-redefine {
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: var(--second-text-color);
             margin-bottom: 20px;
-            font-size: 1.2rem;
+            padding: 15px 20px;
+            background-color: var(--background-color);
+            border-radius: var(--redefine-border-radius-medium);
+            box-shadow: var(--redefine-box-shadow-flat);
         }
-        .breadcrumb-container a {
-            color: #039be5;
+
+        .breadcrumb-redefine {
+            margin-bottom: 20px;
+            font-size: 1rem;
+            padding: 12px 20px;
+            background-color: var(--second-background-color);
+            border-radius: var(--redefine-border-radius-small);
+            color: var(--third-text-color);
+            box-shadow: var(--redefine-box-shadow-flat);
         }
-        .preloader-wrapper {
-            margin: 50px auto;
+        .breadcrumb-redefine a {
+            color: var(--primary-color);
+            text-decoration: none;
+            padding-bottom: 0;
+        }
+        .breadcrumb-redefine a:hover {
+            text-decoration: underline !important;
+        }
+        .breadcrumb-redefine span:not(:last-child) { /* Style current folder name differently */
+             margin: 0 5px;
+        }
+         .breadcrumb-redefine span.current-folder-crumb {
+            color: var(--default-text-color);
+            font-weight: 500;
+        }
+
+
+        .loading-redefine,
+        .message-redefine {
+            padding: 20px;
+            margin-bottom: 20px;
+            background-color: var(--background-color);
+            border-radius: var(--redefine-border-radius-medium);
+            text-align: center;
+            color: var(--default-text-color);
+            box-shadow: var(--redefine-box-shadow-flat);
+        }
+        .message-redefine.error-panel {
+            background-color: #ffebee;
+            color: #c62828;
+            border: 1px solid var(--border-color);
+        }
+        .message-redefine.empty-panel {
+             background-color: var(--second-background-color);
+        }
+
+        .file-list-redefine {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .file-browser-item .home-article-title { /* Applied to item-name span */
+            margin-bottom: 0; /* Remove bottom margin if it's from home-article-title */
+            font-size: 1.2rem; /* Adjust size for file/folder names */
+        }
+
+        .file-item-content-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            width: 100%;
+        }
+
+        .item-icon-container {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            background-color: var(--primary-color); /* Default for folders */
+        }
+        
+        .item-icon-container.file-icon-bg {
+            background-color: var(--third-text-color); 
+        }
+        .item-icon-container .material-icons {
+            color: white !important; /* Ensure icon color is white and overrides general a:hover i */
+            font-size: 22px;
+        }
+
+        .item-details {
+            flex-grow: 1;
+            overflow: hidden;
+        }
+        .item-name { 
             display: block;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            cursor: pointer;
+            color: var(--second-text-color);
+            padding-bottom: 0; /* Override general 'a' padding */
         }
-        .card-panel {
-            margin-top: 20px;
+        .item-name:hover {
+            color: var(--primary-color);
         }
-        .repo-title {
-            font-size: 2rem;
-            color: #424242;
+
+        .item-actions {
+            display: flex;
+            gap: 10px;
+            flex-shrink: 0;
         }
-        .footer-text {
-            font-size: 0.9rem;
-            color: #757575;
+
+        .action-button {
+            padding: 6px 12px;
+            border-radius: var(--redefine-border-radius-small);
+            background-color: var(--primary-color);
+            color: white !important;
+            text-decoration: none !important;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 0.85rem;
+            box-shadow: var(--redefine-box-shadow-flat);
+            transition: background-color 0.2s ease, transform 0.1s ease;
+        }
+        .action-button:hover {
+            background-color: #0056b3;
+            transform: translateY(-1px);
+            color: white !important;
+        }
+        .action-button .material-icons {
+            font-size: 16px;
+            color: white !important; 
+        }
+        .action-button:hover .material-icons {
+             color: white !important;
+        }
+
+
+        @media (max-width: 991px) {
+            .home-article-title {
+                font-size: 1.3rem;
+            }
+            .repo-title-redefine {
+                font-size: 1.6rem;
+            }
+             .file-browser-item .home-article-title {
+                font-size: 1.1rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .home-article-title {
+                font-size: 1.2rem;
+            }
+            .navbar-menu {
+                display: none; 
+            }
+            .file-item-content-wrapper {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+            .item-actions {
+                margin-top: 10px;
+                width: 100%;
+            }
+            .action-button {
+                flex-grow: 1;
+                justify-content: center;
+            }
+             .repo-title-redefine {
+                font-size: 1.4rem;
+            }
+             .file-browser-item .home-article-title {
+                font-size: 1rem;
+            }
+        }
+         @media (max-width: 480px) {
+            .item-actions {
+                flex-direction: column;
+                gap: 8px;
+            }
+            .action-button {
+                 width: 100%;
+                 padding: 8px 12px;
+            }
         }
     </style>
 </head>
 <body>
-    <nav class="blue darken-2">
-        <div class="nav-wrapper container">
-            <a href="#" id="repo-brand" class="brand-logo">文件资源</a>
-            <ul id="nav-mobile" class="right hide-on-med-and-down">
-                <li><a id="github-repo-link" href="https://github.com/magicnue/page-assets" target="_blank">GitHub 仓库</a></li>
-            </ul>
-        </div>
-    </nav>
-
-    <main class="container">
-        <h1 id="page-title" class="repo-title">文件列表</h1>
-        <div id="breadcrumb-container" class="breadcrumb-container">
-            <!-- Breadcrumbs will be populated here -->
-        </div>
-
-        <div id="loading" class="center-align">
-            <div class="preloader-wrapper big active">
-                <div class="spinner-layer spinner-blue-only">
-                    <div class="circle-clipper left">
-                        <div class="circle"></div>
-                    </div><div class="gap-patch">
-                        <div class="circle"></div>
-                    </div><div class="circle-clipper right">
-                        <div class="circle"></div>
+    <main class="page-container">
+        <div class="main-content-container">
+            <div class="main-content-header">
+                <div class="navbar">
+                    <div class="navbar-logo" id="repo-brand-logo">File Browser</div>
+                    <div class="navbar-menu">
+                        <a id="github-repo-link-styled" href="#" target="_blank" class="navbar-menu-item">首页</a>
+                        <a id="github-repo-link-styled" href="#" target="_blank" class="navbar-menu-item">GitHub 仓库</a>
                     </div>
                 </div>
             </div>
-            <p>加载中...</p>
+
+            <div class="main-content-body">
+                <div class="main-content">
+                    <h1 id="page-main-title" class="repo-title-redefine">File List</h1>
+                    <div id="breadcrumb-container" class="breadcrumb-redefine">
+                    </div>
+
+                    <div id="loading" class="loading-redefine" style="text-align: center; padding: 20px;">
+                        <p>Loading...</p>
+                    </div>
+
+                    <ul id="file-list" class="file-list-redefine" style="display:none;">
+                    </ul>
+                    <div id="empty-folder-message" class="message-redefine empty-panel" style="display:none;">
+                        This folder is empty.
+                    </div>
+                    <div id="error-message" class="message-redefine error-panel" style="display:none;">
+                        Error: Could not load file list.
+                    </div>
+                </div>
+            </div>
+
+            <div class="main-content-footer">
+                <div>© <span id="current-year">2025</span> <span id="footer-repo-name"></span> File Browser</div>
+                <div>Powered by GitHub API & Redefine Style</div>
+            </div>
         </div>
 
-        <ul id="file-list" class="collection with-header z-depth-1" style="display:none;">
-            <!-- File items will be populated here -->
-        </ul>
-        <div id="empty-folder-message" class="card-panel teal lighten-5" style="display:none;">
-            <span class="teal-text text-darken-2">这个文件夹是空的。</span>
-        </div>
-        <div id="error-message" class="card-panel red lighten-4" style="display:none;">
-            <span class="red-text text-darken-2">错误：无法加载文件列表。请检查仓库名称和网络连接。</span>
+        <div class="right-side-tools-container">
+            <div class="side-tool-button" id="back-to-top" style="opacity:0;">
+                <i>↑</i>
+            </div>
+            <div class="side-tool-button" id="toggle-dark-mode">
+                <i>☀</i>
+            </div>
         </div>
     </main>
 
-    <footer class="page-footer blue darken-3">
-        <div class="container">
-            <div class="row">
-                <div class="col l6 s12">
-                    <h5 class="white-text">关于</h5>
-                    <p class="grey-text text-lighten-4">这是一个基于 GitHub Pages 的公开文件资源站点。</p>
-                </div>
-            </div>
-        </div>
-        <div class="footer-copyright blue darken-4">
-            <div class="container footer-text">
-                © <span id="current-year"></span> MagicNue's assets site.
-            </div>
-        </div>
-    </footer>
-
-    <!-- Materialize JavaScript -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <script>
-        // ===================================================================================
-        // 用户配置区域
-        // ===================================================================================
-        // !!! 重要: 请修改为你自己的 GitHub 用户名和仓库名 !!!
-        const REPO_OWNER = 'magicnue'; // 例如: 'octocat'
-        const REPO_NAME = 'page-assets';   // 例如: 'Spoon-Knife'
-        const ROOT_FOLDER = 'src'; // 你想要展示内容的根文件夹，通常是 'src'
-        // ===================================================================================
+        document.addEventListener('DOMContentLoaded', function() {
+            const backToTopButton = document.getElementById('back-to-top');
+            backToTopButton.addEventListener('click', function() {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
 
-        const GITHUB_API_BASE_URL = `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/`;
-        const GITHUB_PAGES_BASE_URL = `https://${REPO_OWNER}.github.io/${REPO_NAME}/`; // 或者自定义域名
-
-        const fileListEl = document.getElementById('file-list');
-        const loadingEl = document.getElementById('loading');
-        const errorMessageEl = document.getElementById('error-message');
-        const emptyFolderMessageEl = document.getElementById('empty-folder-message');
-        const breadcrumbContainerEl = document.getElementById('breadcrumb-container');
-        const pageTitleEl = document.getElementById('page-title');
-        const repoBrandEl = document.getElementById('repo-brand');
-        const githubRepoLinkEl = document.getElementById('github-repo-link');
-
-        document.getElementById('current-year').textContent = new Date().getFullYear();
-        if (REPO_OWNER !== 'YOUR_GITHUB_USERNAME' && REPO_NAME !== 'YOUR_REPOSITORY_NAME') {
-            repoBrandEl.textContent = REPO_NAME;
-            githubRepoLinkEl.href = `https://github.com/${REPO_OWNER}/${REPO_NAME}`;
-        }
-
-
-        async function fetchFiles(path = '') {
-            showLoading(true);
-            fileListEl.style.display = 'none';
-            emptyFolderMessageEl.style.display = 'none';
-            errorMessageEl.style.display = 'none';
-            fileListEl.innerHTML = ''; // 清空列表
-
-            const apiPath = path ? path : ROOT_FOLDER; // 如果path为空，则使用ROOT_FOLDER
-            const apiUrl = GITHUB_API_BASE_URL + apiPath;
-
-            try {
-                const response = await fetch(apiUrl);
-                if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
-                }
-                const data = await response.json();
-                
-                updateBreadcrumbs(apiPath);
-                pageTitleEl.textContent = `文件列表: /${apiPath}`;
-
-                if (!Array.isArray(data)) { // 如果不是数组，可能是单个文件信息（不应直接访问）
-                    console.warn("Received non-array data, expected directory listing:", data);
-                    throw new Error("Invalid data format from API. Expected a directory listing.");
-                }
-
-                if (data.length === 0) {
-                    emptyFolderMessageEl.style.display = 'block';
+            window.addEventListener('scroll', function() {
+                if (window.scrollY > 300) {
+                    backToTopButton.style.opacity = '1';
                 } else {
-                    fileListEl.style.display = 'block';
-                    // 分离文件夹和文件，并排序
-                    const directories = data.filter(item => item.type === 'dir').sort((a, b) => a.name.localeCompare(b.name));
-                    const files = data.filter(item => item.type === 'file').sort((a, b) => a.name.localeCompare(b.name));
+                    backToTopButton.style.opacity = '0';
+                }
+            });
+
+            const darkModeToggle = document.getElementById('toggle-dark-mode');
+            const htmlElement = document.documentElement;
+              
+            darkModeToggle.addEventListener('click', function() {
+                if (htmlElement.style.getPropertyValue('--background-color') === '#222') {
+                    htmlElement.style.setProperty('--background-color', '#fff');
+                    htmlElement.style.setProperty('--second-background-color', '#f8f8f8');
+                    htmlElement.style.setProperty('--third-background-color', '#f2f2f2');
+                    htmlElement.style.setProperty('--default-text-color', '#333');
+                    htmlElement.style.setProperty('--second-text-color', '#555');
+                    htmlElement.style.setProperty('--third-text-color', '#777');
+                    htmlElement.style.setProperty('--fourth-text-color', '#999');
+                    htmlElement.style.setProperty('--border-color', '#eee');
+                    htmlElement.style.setProperty('--current-wallpaper-url', "var(--light-wallpaper-url)");
+                    darkModeToggle.innerHTML = '<i>☀</i>';
+                } else {
+                    htmlElement.style.setProperty('--background-color', '#222');
+                    htmlElement.style.setProperty('--second-background-color', '#333');
+                    htmlElement.style.setProperty('--third-background-color', '#444');
+                    htmlElement.style.setProperty('--default-text-color', '#eee');
+                    htmlElement.style.setProperty('--second-text-color', '#ddd');
+                    htmlElement.style.setProperty('--third-text-color', '#bbb');
+                    htmlElement.style.setProperty('--fourth-text-color', '#999');
+                    htmlElement.style.setProperty('--border-color', '#555');
+                    htmlElement.style.setProperty('--current-wallpaper-url', "var(--dark-wallpaper-url)");
+                    darkModeToggle.innerHTML = '<i>☾</i>';
+                }
+            });
+
+            const REPO_OWNER = 'magicnue'; 
+            const REPO_NAME = 'page-assets';   
+            const ROOT_FOLDER = 'src'; 
+
+            const GITHUB_API_BASE_URL = `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/`;
+            
+            const fileListEl = document.getElementById('file-list');
+            const loadingEl = document.getElementById('loading');
+            const errorMessageEl = document.getElementById('error-message');
+            const emptyFolderMessageEl = document.getElementById('empty-folder-message');
+            const breadcrumbContainerEl = document.getElementById('breadcrumb-container');
+            const pageMainTitleEl = document.getElementById('page-main-title');
+            const repoBrandLogoEl = document.getElementById('repo-brand-logo');
+            const pageTitleTagEl = document.getElementById('page-title-tag');
+            const githubRepoLinkStyledEl = document.getElementById('github-repo-link-styled');
+            const footerRepoNameEl = document.getElementById('footer-repo-name');
+
+
+            document.getElementById('current-year').textContent = new Date().getFullYear();
+            if (REPO_OWNER && REPO_NAME && REPO_OWNER !== 'YOUR_GITHUB_USERNAME' && REPO_NAME !== 'YOUR_REPOSITORY_NAME') {
+                if(repoBrandLogoEl) repoBrandLogoEl.textContent = REPO_NAME;
+                if(githubRepoLinkStyledEl) githubRepoLinkStyledEl.href = `https://github.com/${REPO_OWNER}/${REPO_NAME}`;
+                if(pageTitleTagEl) pageTitleTagEl.textContent = `${REPO_NAME} - File Browser`;
+                if(pageMainTitleEl) pageMainTitleEl.textContent = `目录: /${ROOT_FOLDER}`;
+                if(footerRepoNameEl) footerRepoNameEl.textContent = REPO_NAME;
+            } else {
+                if(pageMainTitleEl) pageMainTitleEl.textContent = "Configuration Required";
+                errorMessageEl.innerHTML = '<strong>Please configure REPO_OWNER and REPO_NAME in the script.</strong>';
+                errorMessageEl.style.display = 'block';
+                loadingEl.style.display = 'none';
+                return; 
+            }
+
+            async function fetchFiles(path = '') {
+                showLoading(true);
+                fileListEl.style.display = 'none';
+                emptyFolderMessageEl.style.display = 'none';
+                errorMessageEl.style.display = 'none';
+                fileListEl.innerHTML = ''; 
+
+                const apiPath = path ? path : ROOT_FOLDER;
+                const apiUrl = GITHUB_API_BASE_URL + apiPath;
+
+                try {
+                    const response = await fetch(apiUrl);
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+                    const data = await response.json();
                     
-                    [...directories, ...files].forEach(item => {
-                        createListItem(item, apiPath);
-                    });
+                    updateBreadcrumbs(apiPath);
+                    const displayPathForTitle = apiPath;
+                    if(pageMainTitleEl) pageMainTitleEl.textContent = `目录: /${displayPathForTitle}`;
+                    if(pageTitleTagEl) pageTitleTagEl.textContent = `${REPO_NAME} - /${displayPathForTitle}`;
+
+
+                    if (!Array.isArray(data)) {
+                        throw new Error("Invalid data format from API.");
+                    }
+
+                    if (data.length === 0) {
+                        emptyFolderMessageEl.style.display = 'block';
+                    } else {
+                        fileListEl.style.display = 'flex';
+                        const directories = data.filter(item => item.type === 'dir').sort((a, b) => a.name.localeCompare(b.name));
+                        const files = data.filter(item => item.type === 'file').sort((a, b) => a.name.localeCompare(b.name));
+                        
+                        [...directories, ...files].forEach(item => {
+                            createListItem(item);
+                        });
+                    }
+
+                } catch (error) {
+                    console.error('Error fetching files:', error);
+                    errorMessageEl.textContent = `Error: Could not load file list (${error.message}). Path: ${apiPath}.`;
+                    errorMessageEl.style.display = 'block';
+                } finally {
+                    showLoading(false);
+                }
+            }
+
+            function showLoading(isLoading) {
+                loadingEl.style.display = isLoading ? 'block' : 'none';
+            }
+
+            function getFileIcon(fileName) {
+                const extension = fileName.split('.').pop().toLowerCase();
+                switch (extension) {
+                    case 'pdf': return 'picture_as_pdf';
+                    case 'doc': case 'docx': return 'description';
+                    case 'xls': case 'xlsx': return 'grid_on';
+                    case 'ppt': case 'pptx': return 'slideshow';
+                    case 'zip': case 'rar': case 'tar': case 'gz': return 'archive';
+                    case 'txt': return 'text_fields';
+                    case 'jpg': case 'jpeg': case 'png': case 'gif': case 'bmp': case 'svg': return 'image';
+                    case 'mp3': case 'wav': case 'ogg': return 'audiotrack';
+                    case 'mp4': case 'mov': case 'avi': case 'wmv': return 'movie';
+                    case 'js': case 'json': case 'html': case 'css': case 'py': case 'java': case 'c': case 'cpp': return 'code';
+                    default: return 'insert_drive_file';
+                }
+            }
+
+            function createListItem(item) {
+                const listItem = document.createElement('li');
+                listItem.className = 'file-browser-item home-article-item'; 
+
+                const itemContentWrapper = document.createElement('div');
+                itemContentWrapper.className = 'file-item-content-wrapper';
+
+                const iconContainer = document.createElement('div');
+                iconContainer.className = 'item-icon-container';
+                const icon = document.createElement('i');
+                icon.className = 'material-icons item-icon';
+                icon.textContent = item.type === 'dir' ? 'folder' : getFileIcon(item.name);
+                if (item.type !== 'dir') {
+                    iconContainer.classList.add('file-icon-bg');
+                }
+                iconContainer.appendChild(icon);
+
+                const itemDetails = document.createElement('div');
+                itemDetails.className = 'item-details';
+                const titleSpan = document.createElement('span');
+                titleSpan.className = 'item-name home-article-title'; 
+                titleSpan.textContent = item.name;
+                itemDetails.appendChild(titleSpan);
+
+                const actionsDiv = document.createElement('div');
+                actionsDiv.className = 'item-actions';
+
+                const filePageUrl = item.download_url || item.html_url; // Use download_url for files, html_url as fallback or for dirs if needed for direct repo view
+
+                if (item.type === 'dir') {
+                    titleSpan.onclick = () => fetchFiles(item.path);
+                    const openBtn = document.createElement('a');
+                    openBtn.className = 'action-button';
+                    openBtn.innerHTML = `<i class="material-icons">folder_open</i> Open`;
+                    openBtn.onclick = (e) => { e.preventDefault(); fetchFiles(item.path); };
+                    actionsDiv.appendChild(openBtn);
+                } else if (item.type === 'file') {
+                    titleSpan.onclick = () => window.open(filePageUrl, '_blank');
+                    
+                    const viewBtn = document.createElement('a');
+                    viewBtn.href = filePageUrl;
+                    viewBtn.target = '_blank';
+                    viewBtn.className = 'action-button';
+                    viewBtn.innerHTML = `<i class="material-icons">visibility</i> View`;
+                    actionsDiv.appendChild(viewBtn);
+
+                    const downloadBtn = document.createElement('a');
+                    downloadBtn.href = filePageUrl; 
+                    downloadBtn.setAttribute('download', item.name);
+                    downloadBtn.className = 'action-button';
+                    downloadBtn.innerHTML = `<i class="material-icons">file_download</i> Download`;
+                    actionsDiv.appendChild(downloadBtn);
                 }
 
-            } catch (error) {
-                console.error('Error fetching files:', error);
-                errorMessageEl.textContent = `错误：无法加载文件列表 (${error.message})。请检查仓库名称、路径 (${apiPath}) 和网络连接。`;
-                errorMessageEl.style.display = 'block';
-            } finally {
-                showLoading(false);
-            }
-        }
-
-        function showLoading(isLoading) {
-            loadingEl.style.display = isLoading ? 'block' : 'none';
-        }
-
-        function getFileIcon(fileName) {
-            const extension = fileName.split('.').pop().toLowerCase();
-            switch (extension) {
-                case 'pdf': return 'picture_as_pdf';
-                case 'doc': case 'docx': return 'description';
-                case 'xls': case 'xlsx': return 'grid_on';
-                case 'ppt': case 'pptx': return 'slideshow';
-                case 'zip': case 'rar': case 'tar': case 'gz': return 'archive';
-                case 'txt': return 'text_fields';
-                case 'jpg': case 'jpeg': case 'png': case 'gif': case 'bmp': case 'svg': return 'image';
-                case 'mp3': case 'wav': case 'ogg': return 'audiotrack';
-                case 'mp4': case 'mov': case 'avi': case 'wmv': return 'movie';
-                case 'js': case 'json': case 'html': case 'css': case 'py': case 'java': case 'c': case 'cpp': return 'code';
-                default: return 'insert_drive_file';
-            }
-        }
-
-        function createListItem(item, currentBasePath) {
-            const listItem = document.createElement('li');
-            listItem.className = 'collection-item avatar';
-
-            const icon = document.createElement('i');
-            icon.className = 'material-icons circle';
-            if (item.type === 'dir') {
-                icon.textContent = 'folder';
-                icon.classList.add('blue', 'lighten-1');
-            } else {
-                icon.textContent = getFileIcon(item.name);
-                icon.classList.add('grey', 'lighten-1');
+                itemContentWrapper.appendChild(iconContainer);
+                itemContentWrapper.appendChild(itemDetails);
+                itemContentWrapper.appendChild(actionsDiv);
+                listItem.appendChild(itemContentWrapper);
+                fileListEl.appendChild(listItem);
             }
 
-            const titleSpan = document.createElement('span');
-            titleSpan.className = 'title item-name';
-            titleSpan.textContent = item.name;
+            function updateBreadcrumbs(currentPath) {
+                breadcrumbContainerEl.innerHTML = ''; 
+                
+                let displayPath = currentPath;
+                let rootCrumbPath = ROOT_FOLDER;
 
-            const actionsDiv = document.createElement('div');
-            actionsDiv.className = 'secondary-content file-actions';
+                if (currentPath.startsWith(ROOT_FOLDER + '/')) {
+                    displayPath = currentPath.substring(ROOT_FOLDER.length + 1);
+                } else if (currentPath === ROOT_FOLDER) {
+                    displayPath = ''; 
+                } else { // Path is outside ROOT_FOLDER (e.g. repo root), adjust rootCrumbPath
+                    rootCrumbPath = ''; // Indicates we are at repo root if path doesn't contain ROOT_FOLDER
+                }
 
-            if (item.type === 'dir') {
-                titleSpan.onclick = () => fetchFiles(item.path);
-                const openBtn = document.createElement('a');
-                openBtn.className = 'waves-effect waves-light btn-small blue';
-                openBtn.innerHTML = '<i class="material-icons left">folder_open</i>打开';
-                openBtn.onclick = () => fetchFiles(item.path);
-                actionsDiv.appendChild(openBtn);
 
-            } else if (item.type === 'file') {
-                // 构建文件在 GitHub Pages 上的直接访问路径
-                // 注意: item.path 是从仓库根目录开始的完整路径，例如 "src/subfolder/file.txt"
-                // 如果你的 index.html 在仓库根目录，并且 Pages 源也是仓库根目录
-                // 那么文件的相对路径就是 item.path
-                const filePageUrl = `${item.path}`; // 假设index.html在根目录
+                const rootLink = document.createElement('a');
+                rootLink.href = '#!';
+                rootLink.textContent = ROOT_FOLDER || 'Root'; // Display 'Root' if ROOT_FOLDER is empty
+                rootLink.onclick = (e) => {
+                    e.preventDefault();
+                    fetchFiles(ROOT_FOLDER);
+                };
+                breadcrumbContainerEl.appendChild(rootLink);
 
-                titleSpan.onclick = () => window.open(filePageUrl, '_blank');
+                if (displayPath) {
+                    const parts = displayPath.split('/');
+                    let pathAccumulator = ROOT_FOLDER;
+                    parts.forEach((part, index) => {
+                        if (part === "") return; // Skip empty parts if any (e.g. from trailing slash)
+                        pathAccumulator += (pathAccumulator ? '/' : '') + part;
+                        
+                        const separator = document.createElement('span');
+                        separator.textContent = ' / ';
+                        breadcrumbContainerEl.appendChild(separator);
 
-                const viewBtn = document.createElement('a');
-                viewBtn.href = filePageUrl;
-                viewBtn.target = '_blank';
-                viewBtn.className = 'waves-effect waves-light btn-small green';
-                viewBtn.innerHTML = '<i class="material-icons left">visibility</i>查看';
-                actionsDiv.appendChild(viewBtn);
-
-                const downloadBtn = document.createElement('a');
-                downloadBtn.href = filePageUrl; // 对于GitHub Pages，直接链接即可下载或在浏览器中打开
-                downloadBtn.setAttribute('download', item.name); // 提示浏览器下载
-                downloadBtn.className = 'waves-effect waves-light btn-small orange';
-                downloadBtn.innerHTML = '<i class="material-icons left">file_download</i>下载';
-                actionsDiv.appendChild(downloadBtn);
-            }
-
-            listItem.appendChild(icon);
-            listItem.appendChild(titleSpan);
-            listItem.appendChild(actionsDiv);
-            fileListEl.appendChild(listItem);
-        }
-
-        function updateBreadcrumbs(currentPath) {
-            breadcrumbContainerEl.innerHTML = ''; // 清空面包屑
-            
-            // 移除开头的 ROOT_FOLDER (如果存在) 以便面包屑从 src 之后开始
-            let displayPath = currentPath;
-            if (currentPath.startsWith(ROOT_FOLDER + '/')) {
-                displayPath = currentPath.substring(ROOT_FOLDER.length + 1);
-            } else if (currentPath === ROOT_FOLDER) {
-                displayPath = ''; // 如果就是 ROOT_FOLDER，则路径显示为空
-            }
-
-            const rootLink = document.createElement('a');
-            rootLink.href = '#!';
-            rootLink.textContent = ROOT_FOLDER;
-            rootLink.onclick = (e) => {
-                e.preventDefault();
-                fetchFiles(ROOT_FOLDER);
-            };
-            breadcrumbContainerEl.appendChild(rootLink);
-
-            if (displayPath) {
-                const parts = displayPath.split('/');
-                let pathAccumulator = ROOT_FOLDER;
-                parts.forEach((part, index) => {
-                    pathAccumulator += '/' + part;
+                        if (index === parts.length - 1) { 
+                            const currentFolderSpan = document.createElement('span');
+                            currentFolderSpan.textContent = part;
+                            currentFolderSpan.className = 'current-folder-crumb';
+                            breadcrumbContainerEl.appendChild(currentFolderSpan);
+                        } else {
+                            const partLink = document.createElement('a');
+                            partLink.href = '#!';
+                            partLink.textContent = part;
+                            const capturedPath = pathAccumulator; 
+                            partLink.onclick = (e) => {
+                                e.preventDefault();
+                                fetchFiles(capturedPath);
+                            };
+                            breadcrumbContainerEl.appendChild(partLink);
+                        }
+                    });
+                } else if (currentPath === ROOT_FOLDER) {
+                     // This case means we are AT the root folder, it's already handled by the rootLink.
+                     // If you want to explicitly show the ROOT_FOLDER as current, add:
                     const separator = document.createElement('span');
                     separator.textContent = ' / ';
-                    breadcrumbContainerEl.appendChild(separator);
-
-                    if (index === parts.length - 1) { // Last part is current folder, not a link
-                        const currentFolderSpan = document.createElement('span');
-                        currentFolderSpan.textContent = part;
-                        breadcrumbContainerEl.appendChild(currentFolderSpan);
-                    } else {
-                        const partLink = document.createElement('a');
-                        partLink.href = '#!';
-                        partLink.textContent = part;
-                        const capturedPath = pathAccumulator; // Capture path for closure
-                        partLink.onclick = (e) => {
-                            e.preventDefault();
-                            fetchFiles(capturedPath);
-                        };
-                        breadcrumbContainerEl.appendChild(partLink);
-                    }
-                });
+                    // breadcrumbContainerEl.appendChild(separator); // Only if ROOT_FOLDER is not the first segment displayed
+                    const currentFolderSpan = document.createElement('span');
+                    currentFolderSpan.textContent = ROOT_FOLDER.split('/').pop() || 'Current';
+                    currentFolderSpan.className = 'current-folder-crumb';
+                    // breadcrumbContainerEl.appendChild(currentFolderSpan); // Not ideal if rootLink already says ROOT_FOLDER
+                }
             }
-        }
-
-        // 初始化 Materialize 组件 (如果有的话，例如 modals, dropdowns)
-        M.AutoInit();
-
-        // 初始加载
-        if (REPO_OWNER === 'YOUR_GITHUB_USERNAME' || REPO_NAME === 'YOUR_REPOSITORY_NAME') {
-            showLoading(false);
-            errorMessageEl.innerHTML = '<strong>请先在脚本中配置 <code>REPO_OWNER</code> 和 <code>REPO_NAME</code> 常量！</strong>';
-            errorMessageEl.style.display = 'block';
-        } else {
-            fetchFiles(ROOT_FOLDER); // 从配置的 ROOT_FOLDER 开始
-        }
+            fetchFiles(ROOT_FOLDER);
+        });
     </script>
 </body>
 </html>
